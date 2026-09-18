@@ -104,9 +104,12 @@ static void directory_free(Directory *d) {
         free(d->by_id[i]->name);
         free(d->by_id[i]);                 
     }
-    for (int i = 0; i < d->count; i++) {
-        free(d->by_name[i]);               
-    }
+
+    // 실질적으로 이름을 관리하는건 by_id[i]->name why? rec_new함수를 통해 malloc
+    // 이미 위에서 name을 free했으므로 밑에서는 할 필요가 없다.
+    // for (int i = 0; i < d->count; i++) {
+    //     free(d->by_name[i]);               
+    // }
     d->count = 0;
 }
 
