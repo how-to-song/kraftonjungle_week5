@@ -53,7 +53,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define ROWS 14
+#define ROWS 14 // 14
 enum { SIZE = ROWS * (ROWS + 1) / 2 };   /* 0..ROWS-1 행을 담는 정확한 크기 */
 
 /* 행 i, 열 j 의 삼각 인덱스 */
@@ -63,7 +63,7 @@ static int tri_index(int i, int j) {
 
 /* 파스칼의 삼각형을 tri[] 에 채운다. */
 static void build_pascal(int *tri, int rows) {
-    for (int i = 0; i <= rows; i++) {
+    for (int i = 0; i < rows; i++) {        // for문 조건식 범위 수정
         for (int j = 0; j <= i; j++) {
             int idx = tri_index(i, j);
             if (j == 0 || j == i) {
@@ -79,13 +79,13 @@ static void build_pascal(int *tri, int rows) {
 
 static long row_sum(const int *tri, int i) {
     long sum = 0;
-    for (int j = 0; j <= i; j++) sum += tri[tri_index(i, j)];
+    for (int j = 0; j < i; j++) sum += tri[tri_index(i, j)];
     return sum;
 }
 
 static void print_row(const int *tri, int i) {
     printf("row %2d:", i);
-    for (int j = 0; j <= i; j++) printf(" %d", tri[tri_index(i, j)]);
+    for (int j = 0; j < i; j++) printf(" %d", tri[tri_index(i, j)]);
     printf("   (sum=%ld)\n", row_sum(tri, i));
 }
 
@@ -94,7 +94,7 @@ int main(void) {
 
     build_pascal(tri, ROWS);          
 
-    for (int i = 0; i < ROWS; i++) print_row(tri, i);
+    for (int i = 0; i <= ROWS; i++) print_row(tri, i);
 
     printf("SIZE = %d\n", SIZE);
 
