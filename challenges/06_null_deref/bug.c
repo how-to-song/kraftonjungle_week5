@@ -49,6 +49,8 @@ static void parse_headers(char *text, Headers *h) {
     for (char *line = strtok(text, "\n"); line != NULL; line = strtok(NULL, "\n")) {
         char *colon = strchr(line, ':');   
 
+        if (!colon) continue;           // colon이 NULL일 때, 건너뛰기
+
         *colon = '\0';                    
         char *key = line;
         char *val = skip_ws(colon + 1);
