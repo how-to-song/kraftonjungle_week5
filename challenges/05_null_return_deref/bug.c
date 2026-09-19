@@ -56,6 +56,7 @@ static void expand(const Config *c, const char *tmpl, char *out, size_t outcap) 
     size_t o = 0;
     for (const char *p = tmpl; *p; ) {
         if (p[0] == '$' && p[1] == '{') {
+            // 템플릿에서 key값(자리표시자) 추출
             const char *end = strchr(p, '}');
             if (!end) break;
             char key[32];
@@ -64,7 +65,9 @@ static void expand(const Config *c, const char *tmpl, char *out, size_t outcap) 
             memcpy(key, p + 2, kl);
             key[kl] = '\0';
 
-            const char *v = cfg_get(c, key);      
+            // 해당 key값으로 val값 치환
+            const char *v = cfg_get(c, key);
+            if (v == NULL) v = "";          // 정답: NULL이면 ""(기본값)으로
             size_t vl = strlen(v);                 
             if (o + vl < outcap) { memcpy(out + o, v, vl); o += vl; }
             p = end + 1;
