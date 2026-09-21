@@ -42,26 +42,29 @@
 
 #define MAX_LINES 8
 typedef struct {
-    char **lines;    /* 줄 포인터들의 '배열'을 가리킨다 */
+    char   *lines[MAX_LINES];    // char **lines    /* 줄 포인터들의 '배열'을 가리킨다 */
     int    count;
 } LineView;
 
 /* 결과를 뷰에 채운다(포인터를 함수 경계 너머로 옮겨 -Wdangling 을 회피하는 형태) */
-static void view_set(LineView *out, char **arr, int n) {
-    out->lines = arr;
-    out->count = n;
-}
+// static void view_set(LineView *out, char **arr, int n) {
+//     out->lines = arr;
+//     out->count = n;
+// }
 
 static void split_lines(LineView *out, char *text) {
-    char *parts[MAX_LINES];              
-    int n = 0;
+    // char *parts[MAX_LINES];
     /* strtok는 새로 할당하지 않고, 넘겨받은 문자열 내부의 주소를 돌려준다. 
     * 따라서, strtok은 원본 버퍼를 제자리에서 수정한다. 
     */
-    for (char *ln = strtok(text, "\n"); ln && n < MAX_LINES; ln = strtok(NULL, "\n"))
-        parts[n++] = ln;
+   out->count = 0;
+    for (char *ln = strtok(text, "\n"); ln && out->count < MAX_LINES; ln = strtok(NULL, "\n")){
+        // parts[n++] = ln;
+        out->lines[out->count++] = ln;
+    }
+        
 
-    view_set(out, parts, n);      
+    // view_set(out, parts, n);    
 
     /* TODO 상기 코드를 수정하여 결과를 호출자가 준 out 에 직접 채운다(값 반환 아님, 지역 주소 반환 아님). */       
 }
@@ -78,7 +81,8 @@ static void warm_stack(void) {
 int main(void) {
     char text[] = "alpha\nbeta\ngamma";
 
-    LineView v;
+    LineView v = { 0 };                  // LineView v;
+
     split_lines(&v, text);               
     warm_stack();                        
 
