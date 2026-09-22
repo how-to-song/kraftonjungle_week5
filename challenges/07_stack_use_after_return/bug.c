@@ -54,6 +54,7 @@ typedef struct {
 
 static void split_lines(LineView *out, char *text) {
     // char *parts[MAX_LINES];
+    // int n = 0;
     /* strtok는 새로 할당하지 않고, 넘겨받은 문자열 내부의 주소를 돌려준다. 
     * 따라서, strtok은 원본 버퍼를 제자리에서 수정한다. 
     */
