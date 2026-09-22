@@ -53,12 +53,16 @@ static size_t arena_off = 0;
 static void *arena_alloc(size_t n) {
     void *p = &arena[arena_off];
     arena_off += n;
+    //why? 맨 위에 하면 n을 더한 arena_off가 가 더 커버릴 수 있기 때문
+    //ARENA_SIZE말고 sizeof(arena)? arena의 크기를 임의로 수정해서 바꾸고 싶을 때 sizeof(arena)가 더 안전
+    if (arena_off >= sizeof(arena)) return NULL;            // 추가 
     return p;
 }
 
 static char *intern(const char *s) {
     size_t n = strlen(s) + 1;
     char *dst = arena_alloc(n);
+    if (!dst) return NULL;                  // 추가
     memcpy(dst, s, n);                      /* 경계를 넘은 위치면 여기서 크래시 */
     return dst;
 }
@@ -76,7 +80,11 @@ int main(void) {
     for (int i = 0; i < 100000; i++) {
         char buf[32];
         snprintf(buf, sizeof buf, "%s-%d", words[i % nwords], i);
-        last = intern(buf);                 
+        // 추가
+        char *p;
+        if (!(p = intern(buf))) break;
+        else last = p;
+        // last = intern(buf);
         total += (long)strlen(last);
     }
 

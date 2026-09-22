@@ -12,3 +12,4 @@
 | [08_uninitialized_read](08_uninitialized_read/README.md) | 초기화되지 않은 값 읽기 (uninitialized read) |
 | [09_strcpy_overflow](09_strcpy_overflow/README.md) | 힙 버퍼 오버플로 (크기 계산과 복사 범위 불일치) |
 | [10_realloc_dangling](10_realloc_dangling/README.md) | dangling pointer (realloc 이동 후 옛 주소 사용) → double free |
+| [11_global_overflow](11_global_overflow/README.md) | 전역 버퍼 오버플로 (bump 할당 경계 미검사) → 인접 전역(arena_off) 훼손 |
