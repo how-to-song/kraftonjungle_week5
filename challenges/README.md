@@ -1,0 +1,14 @@
+<!-- generated from vault — 편집은 Obsidian에서 -->
+# 코드 분석 노트
+
+각 챌린지 폴더의 `README.md`는 Obsidian에서 작성한 분석 노트를 내보낸 것.
+
+| 챌린지 | 버그 유형 |
+|---|---|
+| [01_use_after_free](01_use_after_free/README.md) |  |
+| [05_null_return_deref](05_null_return_deref/README.md) |  |
+| [06_null_deref](06_null_deref/README.md) |  |
+| [07_stack_use_after_return](07_stack_use_after_return/README.md) |  |
+| [08_uninitialized_read](08_uninitialized_read/README.md) | 초기화되지 않은 값 읽기 (uninitialized read) |
+| [09_strcpy_overflow](09_strcpy_overflow/README.md) | 힙 버퍼 오버플로 (크기 계산과 복사 범위 불일치) |
+| [10_realloc_dangling](10_realloc_dangling/README.md) | dangling pointer (realloc 이동 후 옛 주소 사용) → double free |
