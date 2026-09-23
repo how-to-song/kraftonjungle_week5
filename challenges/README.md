@@ -14,3 +14,4 @@
 | [10_realloc_dangling](10_realloc_dangling/README.md) | dangling pointer (realloc 이동 후 옛 주소 사용) → double free |
 | [11_global_overflow](11_global_overflow/README.md) | 전역 버퍼 오버플로 (bump 할당 경계 미검사) → 인접 전역(arena_off) 훼손 |
 | [12_free_non_heap](12_free_non_heap/README.md) | 비힙 포인터 free (strtok가 준 내부 포인터를 해제) → invalid pointer |
+| [13_linked_list_uaf](13_linked_list_uaf/README.md) | Use-After-Free (해제한 노드의 next를 읽음) |
