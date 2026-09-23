@@ -58,7 +58,7 @@ static void split_lines(LineView *out, char *text) {
     /* strtok는 새로 할당하지 않고, 넘겨받은 문자열 내부의 주소를 돌려준다. 
     * 따라서, strtok은 원본 버퍼를 제자리에서 수정한다. 
     */
-   out->count = 0;
+    out->count = 0;
     for (char *ln = strtok(text, "\n"); ln && out->count < MAX_LINES; ln = strtok(NULL, "\n")){
         // parts[n++] = ln;
         out->lines[out->count++] = ln;
