@@ -40,16 +40,26 @@
 #include <string.h>
 
 
-static void append_field(char *buf, size_t cap, size_t *len, const char *field, char sep) {
+static void append_field(char *buf, size_t cap, size_t *len, const char *field, char sep) {    
+    // 작성할 수 있는 크기 판단
+    size_t flen = strlen(field);
+    int extra = *len > 0 ? 1 : 0;
+
+    if (*len + flen + extra + 1 > cap) {
+        int remain = (int)cap - (int)*len - extra - 1;
+        if (remain < 0) return;
+        flen = remain > 0 ? (size_t)remain : 0;
+    }
+
+    // 실제 데이터 작성
     if (*len > 0) {
         buf[(*len)++] = sep;             
     }
-    size_t flen = strlen(field);
+    // size_t flen = strlen(field);
     for (size_t i = 0; i < flen; i++) {
         buf[(*len)++] = field[i];         
     }
     buf[*len] = '\0';
-    (void)cap;                            
 }
 
 static void build_record(char *rec, size_t cap) {

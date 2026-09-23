@@ -17,3 +17,4 @@
 | [13_linked_list_uaf](13_linked_list_uaf/README.md) | Use-After-Free (해제한 노드의 next를 읽음) |
 | [14_integer_overflow_alloc](14_integer_overflow_alloc/README.md) | 정수 오버플로(int 곱셈 wrap) → 과소할당 → 힙 오버플로 |
 | [15_dangling_in_struct](15_dangling_in_struct/README.md) | 구조체 멤버 dangling pointer (해제 후 s->user 사용) — UAF |
+| [16_unused_cap_overflow](16_unused_cap_overflow/README.md) | 스택 버퍼 오버플로 (cap 인자를 받고도 경계 검사에 안 씀) |
