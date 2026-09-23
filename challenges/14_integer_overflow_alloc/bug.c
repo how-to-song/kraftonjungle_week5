@@ -49,7 +49,7 @@ typedef struct {
     int width;
     int height;
     int channels;
-    int nbytes;              
+    size_t nbytes;                      // int nbytes;
     unsigned char *px;
 } Image;
 
@@ -60,17 +60,34 @@ static Image *image_new(int width, int height, int channels) {
     img->height = height;
     img->channels = channels;
 
-    img->nbytes = width * height * channels;
-    img->px = malloc((size_t)img->nbytes);     
+    // img->nbytes = width * height * channels;
+    
+    size_t w = img->width;
+    size_t h = img->height;
+    size_t c = img->channels;
+
+    if (w > 0 && h > SIZE_MAX / w) return NULL;
+    size_t wh = w * h;
+    if (c > 0 && wh > SIZE_MAX / c) return NULL;
+    img->nbytes = wh * c;
+
+    // img->px = malloc((size_t)img->nbytes);    
+    img->px = malloc(img->nbytes);               
     if (!img->px) { perror("malloc px"); exit(1); }
     return img;
 }
 
 static void image_fill(Image *img, unsigned char value) {
 
-    size_t total = (size_t)img->width * (size_t)img->height * (size_t)img->channels;
-    for (size_t i = 0; i < total; i++) {
-        img->px[i] = value;                     
+    // size_t total = (size_t)img->width * (size_t)img->height * (size_t)img->channels;
+    size_t total = img->nbytes;
+    // for (size_t i = 0; i < total; i++) {
+    //     img->px[i] = value;                   
+    // }
+
+    // 170억번 돌 순 없으니까 빨리 돌려고 만든 반복문
+    for (size_t i = 0; i < total; i += total/128) {
+        img->px[i] = value;                   
     }
 }
 
@@ -87,7 +104,11 @@ int main(void) {
      *               일 때가 3(RGB)일 때보다 오버플로가 더 쉽게 터질까?
      *               (해결 힌트: 크기 계산을 size_t 로 승격하고, 곱셈 오버플로를 검사한다) */
     Image *img = image_new(65536, 65536, 4);
-    printf("allocated nbytes(int)=%d for %dx%d x%d\n",
+    if (!img) {
+        printf("size overflow");
+        return -1;
+    }
+    printf("allocated nbytes(int)=%zu for %dx%d x%d\n",
            img->nbytes, img->width, img->height, img->channels);
 
     image_fill(img, 0xFF);                       

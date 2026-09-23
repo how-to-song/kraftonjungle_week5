@@ -31,7 +31,8 @@ typedef struct {
 - `int *data` - 버퍼에 들어갈 data 배열
 - `size_t len, cap` - data배열의 길이와 용량
 - `int *clipboard` - data바로 뒤에 놓이는 별도의 할당
-	- `realloc` 시 뒤에가 비어있으면 제자리에서 늘리고 뒤에가 비어있지 않으면 이동하여 재할당
+- `int   *undo[MAX_UNDO]` - 뒤로 돌릴 데이터 배열들의 주소값 배열
+- `int    undo_n`- 뒤로 돌릴 배열의 개수
 
 
 ## 함수

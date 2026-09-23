@@ -15,3 +15,4 @@
 | [11_global_overflow](11_global_overflow/README.md) | 전역 버퍼 오버플로 (bump 할당 경계 미검사) → 인접 전역(arena_off) 훼손 |
 | [12_free_non_heap](12_free_non_heap/README.md) | 비힙 포인터 free (strtok가 준 내부 포인터를 해제) → invalid pointer |
 | [13_linked_list_uaf](13_linked_list_uaf/README.md) | Use-After-Free (해제한 노드의 next를 읽음) |
+| [14_integer_overflow_alloc](14_integer_overflow_alloc/README.md) | 정수 오버플로(int 곱셈 wrap) → 과소할당 → 힙 오버플로 |
