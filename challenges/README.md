@@ -19,3 +19,4 @@
 | [15_dangling_in_struct](15_dangling_in_struct/README.md) | 구조체 멤버 dangling pointer (해제 후 s->user 사용) — UAF |
 | [16_unused_cap_overflow](16_unused_cap_overflow/README.md) | 스택 버퍼 오버플로 (cap 인자를 받고도 경계 검사에 안 씀) |
 | [17_ownership_uaf](17_ownership_uaf/README.md) | 소유권 이중화 → Use-After-Free / double free |
+| [18_cleanup_double_free](18_cleanup_double_free/README.md) | goto 정리 경로의 double free (+ state 누수) |
