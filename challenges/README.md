@@ -21,3 +21,4 @@
 | [17_ownership_uaf](17_ownership_uaf/README.md) | 소유권 이중화 → Use-After-Free / double free |
 | [18_cleanup_double_free](18_cleanup_double_free/README.md) | goto 정리 경로의 double free (+ state 누수) |
 | [19_realloc_shrink_overflow](19_realloc_shrink_overflow/README.md) | realloc 축소 후 len 미갱신 → 힙 범위 밖 읽기 |
+| [20_vector_stale_pointer](20_vector_stale_pointer/README.md) | 성장하는 배열 원소의 주소 캐시 → realloc 후 dangling pointer |

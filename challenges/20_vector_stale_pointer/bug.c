@@ -75,14 +75,24 @@ int main(void) {
 
     for (int k = 0; k < 200000; k++) hist_add(&h, k);
 
-    Bucket *hot = &h.data[100000];
-    hot->count = 1;
+    size_t idx = 100000;
+
+    h.data[idx].count = 1;
+    
+    // Bucket *hot = &h.data[100000];
+    // hot->count = 1;
 
     for (int k = 200000; k < 600000; k++) hist_add(&h, k);
 
-    hot->count += 1000;
+    // realloc 이후 주소 재지정
+    // hot = &h.data[100000];
+    
+    // hot->count += 1000;
 
-    printf("hot=%ld total=%ld len=%zu\n", hot->count, hist_total(&h), h.len);
+    h.data[idx].count += 1000;
+
+    // printf("hot=%ld total=%ld len=%zu\n", hot->count, hist_total(&h), h.len);
+    printf("hot=%ld total=%ld len=%zu\n", h.data[idx].count, hist_total(&h), h.len);
     free(h.data);
     return 0;
 }
